@@ -1,26 +1,19 @@
-buildscript {
-    ext {
-        springBootVersion = '2.2.1.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins{
+    id 'java'
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 }
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 group 'com.agmtopy'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
@@ -32,12 +25,28 @@ dependencies {
     /* Spring */
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.cloud:spring-cloud-starter:2.2.3.RELEASE')
 
-    /* Redis */
+    /* redis containers*/
     compile "io.lettuce:lettuce-core:5.1.1.RELEASE"
 
     /* Test Container */
-    testImplementation('org.testcontainers:junit-jupiter:1.14.3')
+    testCompile "org.testcontainers:junit-jupiter:1.14.3"
+
+    /* mysql containers*/
+    testCompile "com.playtika.testcontainers:embedded-mysql:1.79"
+
+    /* mysql containers*/
+    testCompile "com.playtika.testcontainers:testcontainers-common:1.79"
+
+    /* mysql driver */
+    testCompile "mysql:mysql-connector-java:8.0.21"
+
+    /* spring-jdbc */
+    testCompile "org.springframework:spring-jdbc:5.2.8.RELEASE"
+
+    /* tomcat */
+    testCompile "org.apache.tomcat:tomcat-jdbc:9.0.37"
 
     /* JUnit 5 */
     def junitJupiterVersion = '5.4.2'
