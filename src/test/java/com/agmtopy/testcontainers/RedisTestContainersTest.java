@@ -29,7 +29,7 @@ public class RedisTestContainersTest {
     public void setUp() {
         String address = redis.getHost();
         Integer port = redis.getFirstMappedPort();
-        //初始化redis客户端
+        //初始化redis客户端 
         redisCommands = RedisClient.create(String.format("redis://%s:%d/0", address, port)).connect().sync();
     }
 
