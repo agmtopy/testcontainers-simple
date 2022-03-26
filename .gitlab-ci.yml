@@ -14,7 +14,7 @@ variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
 test:
-  image: gradle:5.0
+  image: gradle:7.4.1-jdk11-alpine
   stage: test
   script: ./gradlew clean test --info
 
