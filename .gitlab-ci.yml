@@ -17,6 +17,4 @@ test:
   image: gradle:5.0
   stage: test
   script: ./gradlew clean test --info
-  tags:
-    - git-runner
 
