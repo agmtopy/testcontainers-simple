@@ -19,10 +19,11 @@ stages:          # List of stages for jobs, and their order of execution
   - deploy
 
 build-job:       # This job runs in the build stage, which runs first.
+  image: gradle:7.4.1-jdk11-alpine
   stage: build
   script:
     - echo "开始编译代码..."
-    - gradle clean build
+    - gradle clean compileJava
     - echo "编译代码完成..."
 
 test-job:        # This job runs in the test stage, which runs second.
