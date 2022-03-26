@@ -11,19 +11,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class FutureTaskOutcome {
+
     public static void main(String[] args) {
         CountDownLatch countDownLatch = new CountDownLatch(1);
         TaskDemo taskDemo = new TaskDemo();
 
         Thread t1 = new Thread(() -> {
-            try {
-                countDownLatch.await();
-                System.out.println(Thread.currentThread().getName() + " start...");
-                method1(taskDemo);
-                taskDemo.state = true;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            System.out.println(Thread.currentThread().getName() + " start...");
+            method1(taskDemo);
+            taskDemo.state = true;
         });
 
         ExecutorService executorService = Executors.newFixedThreadPool(10);
@@ -43,7 +39,8 @@ public class FutureTaskOutcome {
         }
         t1.start();
         countDownLatch.countDown();
-        System.out.println(new Scanner(System.in).next());
+        System.out.println("执行完毕...");
+        executorService.shutdown();
     }
 
     private static void method1(TaskDemo taskDemo) {
@@ -56,7 +53,7 @@ public class FutureTaskOutcome {
     }
 
     private static void print(TaskDemo taskDemo) {
-        System.out.println(Thread.currentThread().getName() + "taskDemo.state = " + taskDemo.state);
-        System.out.println(Thread.currentThread().getName() + "taskDemo.value = " + taskDemo.value);
+        System.out.println(Thread.currentThread().getName() + ":taskDemo.state = " + taskDemo.state);
+        System.out.println(Thread.currentThread().getName() + ":taskDemo.value = " + taskDemo.value);
     }
 }
