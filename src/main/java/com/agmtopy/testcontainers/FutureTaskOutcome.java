@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class FutrueTaskOutcome {
+public class FutureTaskOutcome {
     public static void main(String[] args) {
         CountDownLatch countDownLatch = new CountDownLatch(1);
         TaskDemo taskDemo = new TaskDemo();

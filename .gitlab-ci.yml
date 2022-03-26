@@ -22,17 +22,19 @@ build-job:       # This job runs in the build stage, which runs first.
   stage: build
   script:
     - echo "开始编译代码..."
+    - gradle clean build
+    - echo "编译代码完成..."
 
 test-job:        # This job runs in the test stage, which runs second.
   image: gradle:7.4.1-jdk11-alpine
   stage: test
   script:
     -  echo "开始测试代码..."
-    - gradle clean build --info
-    - echo "测试代码编译完成"
+    - gradle test --info
+    - echo "测试代码完成..."
 
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   script:
     - echo "开始部署代码..."
-    - echo "部署代码完成"
+    - echo "部署代码完成.."

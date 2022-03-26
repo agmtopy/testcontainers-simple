@@ -40,7 +40,7 @@ jacocoTestCoverageVerification {
         rule {
             element = 'CLASS'
             //覆盖度检查package
-            includes = ['com.agmtopy.testcontainers']
+            includes = ['com.agmtopy.*']
             limit {
                 //单元覆盖度
                 minimum = 0.9
