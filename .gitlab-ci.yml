@@ -28,7 +28,7 @@ unit-test-job:   # This job runs in the test stage.
   script:
     - echo "开始运行单元测试..."
     - sleep 10
-    script: gradle clean test --info
+    - gradle clean test --info
 
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
