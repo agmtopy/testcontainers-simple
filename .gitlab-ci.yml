@@ -1,24 +1,20 @@
-# DinD service is required for Testcontainers
+
 services:
-  - name: docker:dind
-    # explicitly disable tls to avoid docker startup interruption
-    command: ["--tls=false"]
+  - name: docker:dind         # Testcontainers需要docker in docker
+    command: ["--tls=false"]  # 禁用tls以避免docker启动中断
 
 variables:
-  # Instruct Testcontainers to use the daemon of DinD.
   DOCKER_HOST: "tcp://docker:2375"
-  # Instruct Docker not to start over TLS.
   DOCKER_TLS_CERTDIR: ""
-  # Improve performance with overlayfs.
   DOCKER_DRIVER: overlay2
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
-stages:          # List of stages for jobs, and their order of execution
+stages:          # 作业的阶段列表及其执行顺序
   - build
   - test
   - deploy
 
-build-job:       # This job runs in the build stage, which runs first.
+build-job:       # 此作业在构建阶段运行，构建阶段是最先执行的
   image: gradle:7.4.1-jdk11-alpine
   stage: build
   script:
@@ -26,7 +22,7 @@ build-job:       # This job runs in the build stage, which runs first.
     - gradle clean compileJava
     - echo "编译代码完成..."
 
-test-job:        # This job runs in the test stage, which runs second.
+test-job:        # 此作业在测试阶段运行，测试阶段在第二阶段执行的
   image: gradle:7.4.1-jdk11-alpine
   stage: test
   script:
@@ -34,8 +30,8 @@ test-job:        # This job runs in the test stage, which runs second.
     - gradle test --info
     - echo "测试代码完成..."
 
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+deploy-job:      # 此作业在部署阶段运行
+  stage: deploy  # 只有当之前两个阶段都成功完成时，才会执行部署的。
   script:
     - echo "开始部署代码..."
     - echo "部署代码完成.."
